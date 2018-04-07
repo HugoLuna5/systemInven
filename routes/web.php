@@ -46,3 +46,34 @@ Route::put("/clientes/update/{id}","ClientsController@update");
 
 //adeudos
 Route::get("/adeudos/clientes","ClientsController@adeudos");
+
+
+/*
+ * Ventas route
+ */
+
+Route::get('/venta','VentasController@index');
+Route::get('/venta/{id}/add-products','VentasController@index');
+
+
+Route::post('/ajaxRequest','VentasController@ajaxRequestAddCliente');
+Route::post('/ajaxRequest2','VentasController@ajaxRequestAddProducts');
+Route::post('/ajaxRequest3','VentasController@ajaxRequestComplete');
+Route::post('/deleteContent','VentasController@ajaxRequestDelete');
+
+
+/*
+ * Factura route
+ */
+
+
+Route::get('/factura/{id_venta}/{md5}/cliente/{id_cliente}','VentasController@factura');
+
+
+/*
+ * Proveedores Route
+ */
+
+Route::get('/proveedores','HomeController@proveedor');
+Route::post('/proveedores','HomeController@proveedorPost');
+Route::get('/delete/evento/{id}','HomeController@proveedorDelete');

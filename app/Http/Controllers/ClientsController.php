@@ -109,7 +109,12 @@ class ClientsController extends Controller
 
         $cliente->save();
 
-        return $cliente->$field;
+
+
+            return $cliente->$field;
+
+
+
     }
 
     /**

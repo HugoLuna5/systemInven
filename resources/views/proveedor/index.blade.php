@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Mini Super Cynthi</title>
-    <link rel="stylesheet" type="text/css" href="assets/lib/jquery.gritter/css/jquery.gritter.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/lib/jquery.gritter/css/jquery.gritter.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/lib/material-design-icons/css/material-design-iconic-font.min.css"/><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" type="text/css" href="assets/lib/datetimepicker/css/bootstrap-datetimepicker.min.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/lib/select2/css/select2.min.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap-slider/css/bootstrap-slider.css"/>
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/lib/datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/lib/select2/css/select2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/lib/bootstrap-slider/css/bootstrap-slider.css"/>
+    <link rel="stylesheet" href="/assets/css/style.css" type="text/css"/>
 </head>
 <body>
 <div class="be-wrapper">
@@ -36,7 +36,7 @@
 
 
 
-    <!--Error-->
+<!--Error-->
     @if(session('notificationGroupError'))
 
         <div class="alert alert-danger" role="alert">
@@ -94,14 +94,14 @@
                                 </ul>
                             </li>
 
-                            <li ><a href="{{url("/proveedores")}}"><i class="icon mdi mdi-dot-circle"></i><span>Proveedores</span></a>
+                            <li class="active"><a href="{{url("/proveedores")}}"><i class="icon mdi mdi-dot-circle"></i><span>Proveedores</span></a>
 
                             </li>
                             <li  class="parent"><a href="#"><i class="icon mdi mdi-border-all"></i><span>Productos</span></a>
                                 <ul class="sub-menu">
                                     <li><a href="{{url("/products")}}">Productos</a>
                                     </li>
-                                    <li class="active"><a href="{{url("/add-product")}}">Agregar producto</a>
+                                    <li><a href="{{url("/add-product")}}">Agregar producto</a>
                                     </li>
                                 </ul>
                             </li>
@@ -122,9 +122,9 @@
 
     <div class="be-content">
         <div class="page-head">
-            <h2 class="page-head-title">Productos</h2>
+            <h2 class="page-head-title">Proveedores</h2>
             <ol class="breadcrumb page-head-nav">
-                <li><a href="{{url("/products/exist")}}">Productos</a></li>
+                <li><a href="{{url("/proveedores")}}">Proveedores</a></li>
                 <li class="active">Agregar</li>
 
             </ol>
@@ -135,13 +135,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default panel-border-color panel-border-color-primary">
-                        <div class="panel-heading panel-heading-divider">Agregar un cliente<span class="panel-subtitle">Rellena los campos para crear tu producto</span></div>
+                        <div class="panel-heading panel-heading-divider">Agregar un recordatorio<span class="panel-subtitle">Rellena los campos para crear tu recordatorio</span></div>
                         <div class="panel-body">
-                            <form action="{{url("/add-product")}}" method="POST" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
+                            <form action="{{url("/proveedores")}}" method="POST" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
                                 {{ csrf_field() }}
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Nombre del producto</label>
+                                    <label class="col-sm-3 control-label">Nombre del Proveedor</label>
                                     <div class="col-sm-6">
                                         <input type="text" name="nombre" autocomplete="off" class="form-control input-lg">
                                     </div>
@@ -149,236 +149,29 @@
 
 
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Precio</label>
-                                    <div class="col-sm-6">
 
-                                        <div class="input-group xs-mb-15"><span class="input-group-addon">$</span>
-                                            <input type="text" name="precio" class="form-control"><span class="input-group-addon">.00</span>
+
+
+                                <div class="form-group ">
+                                    <label class="col-sm-3 control-label">Fecha</label>
+                                    <div class="col-12 col-sm-12 col-md-5 col-lg-4 col-xl-3">
+                                        <div data-start-view="0" data-date="2018-01-16T05:25:07Z" data-date-format="yyyy-mm-dd - HH:ii" data-link-field="dtp_input1" class="input-group date datetimepicker">
+                                            <input name="fecha" size="16" type="text" value="" class="form-control">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary"><i class="icon-th mdi mdi-calendar"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
 
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Código de barras</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="codigo"  class="form-control">
-                                    </div>
-                                </div>
 
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Categoria</label>
-                                    <div class="col-sm-6">
-                                        <select class="select2" name="categoria">
-                                            <optgroup label="ABARROTES">
-                                                <option value="Aceite comestibles">Aceite comestibles</option>
-                                                <option value="HAderezosI">Aderezos</option>
-                                                <option value="HIConsome">Consome</option>
-                                                <option value="Crema de cacahuate">Crema de cacahuate</option>
-                                                <option value="Crema para café">Crema para café</option>
-                                                <option value="Pure de tomate">Pure de tomate</option>
-                                                <option value="Alimento para bebe">Alimento para bebe</option>
-                                                <option value="Alimento para mascotas">Alimento para mascotas</option>
-                                                <option value="Atole">Atole</option>
-                                                <option value="Avena">Avena</option>
-                                                <option value="Azúcar">Azúcar</option>
-                                                <option value="Café">Café</option>
-                                                <option value="Cereales">Cereales</option>
-                                                <option value="Chile piquín">Chile piquín</option>
-                                                <option value="Especias">Especias</option>
-                                                <option value="Flan en polvo">Flan en polvo</option>
-                                                <option value="Formulas infantiles">Formulas infantiles</option>
-                                                <option value="Gelatinas en polvo/Grenetina">Gelatinas en polvo/Grenetina</option>
-                                                <option value="Harina">Harina</option>
-                                                <option value="Harina preparada">Harina preparada</option>
-                                                <option value="Mole">Mole</option>
-                                                <option value="Sal">Sal</option>
-                                                <option value="Salsas envasadas">Salsas envasadas</option>
-                                                <option value="Sazonadores">Sazonadores</option>
-                                                <option value="Sopas en sobre">Sopas en sobre</option>
-                                                <option value="Cajeta">Cajeta</option>
-                                                <option value="Catsup">Catsup</option>
-                                                <option value="Mayonesa">Mayonesa</option>
-                                                <option value="Mermelada">Mermelada</option>
-                                                <option value="Miel">Miel</option>
-                                                <option value="Te">Te</option>
-                                                <option value="Vinagre">Vinagre</option>
-                                                <option value="Huevo">Huevo</option>
-                                                <option value="Pastas">Pastas</option>d
-                                            </optgroup>
-                                            <optgroup label="ENLATADOS">
-                                                <option value="Aceitunas">Aceitunas</option>
-                                                <option value="Champiñones enteros/rebanados">Champiñones enteros/rebanados</option>
-                                                <option value="Chícharo con zanahoria">Chícharo con zanahoria</option>
-                                                <option value="Chícharos enlatados">Chícharos enlatados</option>
-                                                <option value="Frijoles enlatados">Frijoles enlatados</option>
-                                                <option value="Frutas en almíbar">Frutas en almíbar</option>
-                                                <option value="Sardinas">Sardinas</option>
-                                                <option value="Atún en agua/aceite">Atún en agua/aceite</option>
-                                                <option value="Chiles enlatados">Chiles enlatados</option>
-                                                <option value="Chiles envasados">Chiles envasados</option>
-                                                <option value="Ensaladas enlatadas">Ensaladas enlatadas</option>
-                                                <option value="Granos de elote enlatados">Granos de elote enlatados</option>
-                                                <option value="Sopa en lata">Sopa en lata</option>
-                                                <option value="Vegetales en conserva">Vegetales en conserva</option>
-
-
-                                            </optgroup>
-                                            <optgroup label="LÁCTEOS">
-                                                <option value="Leche condesada">Leche condesada</option>
-                                                <option value="Leche deslactosada">Leche deslactosada</option>
-                                                <option value="Leche en polvo">Leche en polvo</option>
-                                                <option value="Leche evaporada">Leche evaporada</option>
-                                                <option value="Leche light">Leche light</option>
-                                                <option value="Leche pasteurizada">Leche pasteurizada</option>
-                                                <option value="Leche saborizada">Leche saborizada</option>
-                                                <option value="Leche semidescremada">Leche semidescremada</option>
-                                                <option value="Crema">Crema</option>
-                                                <option value="Yoghurt">Yoghurt</option>
-                                                <option value="Mantequilla">Mantequilla</option>
-                                                <option value="Margarina">Margarina</option>
-                                                <option value="Media crema">Media crema</option>
-                                                <option value="Queso">Queso</option>
-
-                                            </optgroup>
-                                            <optgroup label="BOTANAS">
-                                                <option value="Papas">Papas</option>
-                                                <option value="Palomitas">Palomitas</option>
-                                                <option value="Frituras de maíz">Frituras de maíz</option>
-                                                <option value="Cacahuates">Cacahuates</option>
-                                                <option value="Botanas saladas">Botanas saladas</option>
-                                                <option value="Barras alimenticias">Barras alimenticias</option>
-                                                <option value="Nueces y semillas">Nueces y semillas</option>
-                                                <option value="Sabritas">Sabritas</option>
-                                                <option value="Barcel">Barcel</option>
-
-                                            </optgroup>
-                                            <optgroup label="CONFITERÍA">
-                                                <option value="Caramelos">Caramelos</option>
-                                                <option value="Dulces enchilados">Dulces enchilados</option>
-                                                <option value="Chocolate de mesa">Chocolate de mesa</option>
-                                                <option value="Chocolate en polvo
-">Chocolate en polvo
-                                                </option>
-                                                <option value="Chocolates">Chocolates</option>
-                                                <option value="Gomas de mascar">Gomas de mascar</option>
-                                                <option value="Mazapán">Mazapán</option>
-                                                <option value="Malvaviscos">Malvaviscos</option>
-                                                <option value="Pulpa de tamarindo">Pulpa de tamarindo</option>
-                                                <option value="Pastillas de dulce">Pastillas de dulce</option>
-                                                <option value="Paletas de dulce">Paletas de dulce</option>
-
-                                            </optgroup>
-
-
-                                            <optgroup label="HARINAS">
-
-                                                <option value="Tortillas de harina/maíz">Tortillas de harina/maíz</option>
-                                                <option value="Galletas dulces">Galletas dulces</option>
-                                                <option value="Galletas saladas">Galletas saladas</option>
-                                                <option value="Pastelillos">Pastelillos</option>
-                                                <option value="Pan de caja">Pan de caja</option>
-                                                <option value="Pan dulce">Pan dulce</option>
-                                                <option value="Pan molido">Pan molido</option>
-                                                <option value="Pan tostado">Pan tostado</option>
-                                            </optgroup>
-
-
-
-                                            <optgroup label="FRUTAS Y VERDURAS">
-                                                <option value="Aguacates">Aguacates</option>
-                                                <option value="Ajos">Ajos</option>
-                                                <option value="Cebollas">Cebollas</option>
-                                                <option value="Chiles">Chiles</option>
-                                                <option value="Cilantro/Perejil">Cilantro/Perejil</option>
-                                                <option value="Jitomate">Jitomate</option>
-                                                <option value="Papas">Papas</option>
-                                                <option value="Limones">Limones</option>
-                                                <option value="Manzanas">Manzanas</option>
-                                                <option value="Naranjas">Naranjas</option>
-                                                <option value="Plátanos">Plátanos</option>
-
-                                            </optgroup>
-
-                                            <optgroup label="BEBIDAS">
-                                                <option value="Agua mineral">Agua mineral</option>
-                                                <option value="Agua natural">Agua natural</option>
-                                                <option value="Agua saborizada">Agua saborizada</option>
-                                                <option value="Jarabes">Jarabes</option>
-                                                <option value="Jugos/Néctares">Jugos/Néctares</option>
-                                                <option value="Naranjadas">Naranjadas</option>
-                                                <option value="Bebidas de soya">Bebidas de soya</option>
-                                                <option value="Bebidas en polvo">Bebidas en polvo</option>
-                                                <option value="Bebidas infantiles">Bebidas infantiles</option>
-                                                <option value="Bebidas isotónicas">Bebidas isotónicas</option>
-                                                <option value="Energetizantes">Energetizantes</option>
-                                                <option value="Isotónicos">Isotónicos</option>
-                                                <option value="Refrescos">Refrescos</option>
-                                            </optgroup>
-
-
-                                            <optgroup label="BEBIDAS ALCOHÓLICAS">
-                                                <option value="Bebidas preparadas">Bebidas preparadas</option>
-                                                <option value="Cerveza">Cerveza</option>
-                                                <option value="Anís">Anís</option>
-                                                <option value="Brandy">Brandy</option>
-                                                <option value="Ginebra">Ginebra</option>
-                                                <option value="Cordiales">Cordiales</option>
-                                                <option value="Mezcal">Mezcal</option>
-                                                <option value="Jerez">Jerez</option>
-                                                <option value="Ron">Ron</option>
-                                                <option value="Tequila">Tequila</option>
-                                                <option value="Sidra">Sidra</option>
-                                                <option value="Whiskey">Whiskey</option>
-                                                <option value="Vodka">Vodka</option>
-                                            </optgroup>
-
-                                            <optgroup label="ALIMENTOS PREPARADOS">
-                                                <option value="Pastas listas para comer">Pastas listas para comer</option>
-                                                <option value="Sopas en vaso">Sopas en vaso</option>
-                                            </optgroup>
-
-                                            <optgroup label="CARNES Y EMBUTIDOS">
-                                                <option value="Salchicha">Salchicha</option>
-                                                <option value="Mortadela">Mortadela</option>
-                                                <option value="Tocino">Tocino</option>
-                                                <option value="Jamón">Jamón</option>
-                                                <option value="Manteca">Manteca</option>
-                                                <option value="Chorizo">Chorizo</option>
-                                                <option value="Carne de puerco/res/pollo">Carne de puerco/res/pollo</option>
-                                            </optgroup>
-
-                                            <optgroup label="AUTOMEDICACIÓN">
-                                                <option value="Suero">Suero</option>
-                                                <option value="Agua oxigenada">Agua oxigenada</option>
-                                                <option value="Preservativos">Preservativos</option>
-                                                <option value="Alcohol">Alcohol</option>
-                                                <option value="Gasas">Gasas</option>
-                                                <option value="Analgésicos">Analgésicos</option>
-                                                <option value="Antigripales">Antigripales</option>
-                                                <option value="Antiácidos">Antiácidos</option>
-                                            </optgroup>
-
-                                        </select>
-                                    </div>
-                                </div>
-
-
-
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Total de piezas</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="piezas" class="form-control input-lg">
-                                    </div>
-                                </div>
 
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-7">
-                                        <input type="submit" class="btn btn-rounded btn-space btn-success btn-xl" value="Agregar producto">
+                                        <input  type="submit" class="btn btn-rounded btn-space btn-success btn-xl" value="Agregar recordatorio">
                                     </div>
                                 </div>
                             </form>
@@ -591,19 +384,19 @@
         </div>
     </nav>
 </div>
-<script src="assets/lib/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
-<script src="assets/js/main.js" type="text/javascript"></script>
-<script src="assets/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-<script src="assets/lib/jquery.nestable/jquery.nestable.js" type="text/javascript"></script>
-<script src="assets/lib/moment.js/min/moment.min.js" type="text/javascript"></script>
-<script src="assets/lib/datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-<script src="assets/lib/select2/js/select2.min.js" type="text/javascript"></script>
-<script src="assets/lib/bootstrap-slider/js/bootstrap-slider.js" type="text/javascript"></script>
-<script src="assets/js/app-form-elements.js" type="text/javascript"></script>
-<script src="assets/js/app-ui-notifications.js" type="text/javascript"></script>
-<script src="assets/lib/jquery.gritter/js/jquery.gritter.js" type="text/javascript"></script>
+<script src="/assets/lib/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="/assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+<script src="/assets/js/main.js" type="text/javascript"></script>
+<script src="/assets/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/lib/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/assets/lib/jquery.nestable/jquery.nestable.js" type="text/javascript"></script>
+<script src="/assets/lib/moment.js/min/moment.min.js" type="text/javascript"></script>
+<script src="/assets/lib/datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/assets/lib/select2/js/select2.min.js" type="text/javascript"></script>
+<script src="/assets/lib/bootstrap-slider/js/bootstrap-slider.js" type="text/javascript"></script>
+<script src="/assets/js/app-form-elements.js" type="text/javascript"></script>
+<script src="/assets/js/app-ui-notifications.js" type="text/javascript"></script>
+<script src="/assets/lib/jquery.gritter/js/jquery.gritter.js" type="text/javascript"></script>
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -611,6 +404,7 @@
         App.init();
         App.formElements();
         App.uiNotifications();
+
     });
 </script>
 </body>
