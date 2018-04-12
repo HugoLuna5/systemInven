@@ -142,7 +142,13 @@
                                                 <select class="select2" name="cliente">
                                                     <optgroup label="Clientes">
                                                         @foreach($clientes as $cliente)
-                                                            <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+
+                                                            @if($cliente->nombre != "Otro")
+
+                                                                <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+
+                                                            @endif
+
                                                             @endforeach
 
                                                     </optgroup>
@@ -158,7 +164,7 @@
 
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <input type="reset" class="btn btn-default btn-space" value="Cancelar">
+                                                <button type="reset"  id="btn_reset" data-wizard="#wizard1" class="btn btn-default btn-space" >Cancelar</button>
                                                 <button type="submit" data-wizard="#wizard1" id="btn-submit"  class="btn btn-primary btn-space wizard-next btn-submit">Siguiente</button>
                                             </div>
                                         </div>
@@ -184,7 +190,7 @@
 
                                         <div class="form-group">
                                             <div class="col-sm-12">
-                                                <select id="searchable" name="productos" multiple="multiple">
+                                                <select required id="searchable" name="productos[]" multiple="multiple">
 
 
                                                     @foreach($productos as $producto)
@@ -212,7 +218,7 @@
 
                                                 <div class="col-sm-5">
 
-                                                    <input name="num_piezas" class="form-control" type="text" placeholder="Separados por una coma ejemplo 1,2,3">
+                                                    <input required name="num_piezas" class="form-control" type="text" placeholder="Separados por una coma ejemplo 1,2,3">
                                                 </div>
 
 
@@ -542,7 +548,7 @@
 <script src="assets/lib/fuelux/js/wizard.js" type="text/javascript"></script>
 <script src="assets/lib/select2/js/select2.min.js" type="text/javascript"></script>
 <script src="assets/lib/bootstrap-slider/js/bootstrap-slider.js" type="text/javascript"></script>
-<script src="assets/js/app-form-wizard.js" type="text/javascript"></script>
+<script src="{{url("/assets/js/app-form-wizard.js")}}" type="text/javascript"></script>
 <script src="{{url("/js/posts-ajax.js")}}"></script>
 
 <script src="http://foxythemes.net/preview/products/beagle/assets/lib/multiselect/js/jquery.multi-select.js" type="text/javascript"></script>

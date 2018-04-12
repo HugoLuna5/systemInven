@@ -47,58 +47,69 @@ $("#product-submit").click(function(e){
     //var id_venta = $("#form_products").find("input[name='id_venta']").val();
     //var id_cliente = $("#form_products").find("input[name='id_cliente']").val();
     var nombre_cliente = $("#form_products").find("input[name='nombre_cliente']").val();
-    var productos = $("#form_products").find("input[name='productos']").val();
+    var productos = $("#form_products").find("select[id='searchable']").val();
     var num_piezas = $("#form_products").find("input[name='num_piezas']").val();
 
 
-    $.ajax({
-        
-        type: 'POST',
-        dataType: 'json',
-        url: 'http://127.0.0.1:8000/ajaxRequest2',
-        data:form.serialize(),
-        success: function (data) {
-            alert(data.success);
 
-            $("#total_doo").text("$"+data.total);
-            $("#total_input").val(data.total);
+    if (productos != null && num_piezas != null){
 
-            var str = id_venta+id_cliente+'factura_cynthi';
-            var md5 = CryptoJS.MD5(str).toString();
+        $.ajax({
 
-            $("#facturar").attr("href", "http://127.0.0.1:8000/factura/"+id_venta+"/"+md5+"/cliente/"+id_cliente);
+            type: 'POST',
+            dataType: 'json',
+            url: 'http://127.0.0.1:8000/ajaxRequest2',
+            data:form.serialize(),
+            success: function (data) {
+                alert(data.success);
 
-            if (data.id_cliente == 0){
-                $("#forma_pago").attr('disabled','disabled');
+                $("#total_doo").text("$"+data.total);
+                $("#total_input").val(data.total);
+
+                var str = id_venta+id_cliente+'factura_cynthi';
+                var md5 = CryptoJS.MD5(str).toString();
+
+                $("#facturar").attr("href", "http://127.0.0.1:8000/factura/"+data.id_venta+"/"+md5+"/cliente/"+data.id_cliente);
+
+                if (data.id_cliente == 0){
+                    $("#forma_pago").attr('disabled','disabled');
+                }
+
+                $("#id_user").val(data.id_cliente);
+
+                if(data.credito >= 500) {
+                    $("#exceded_credit").css("display", 'block');
+                    $("#exceded_credit").text('Este Cliente sobre paso el limite de credito\n Aún así desea venderle');
+                    $("#submit_finish").attr("id","submit_finish");
+                    $("#submit_finish").attr("disabled","disabled");
+                    $("#forma_pago").attr('disabled','disabled');
+
+                    productosRespaldo = data.productosRespaldo;
+                    piezasRespaldo = data.piezasRespaldo;
+                    id_venta = data.id_venta;
+                    id_cliente = data.id_cliente;
+
+                }else{
+                    $("#exceded_credit").css("display", 'none');
+                    $("#aceptar").css("display", 'none');
+                    $("#rechazar").css("display", 'none');
+
+
+
+                }
+
             }
 
-            $("#id_user").val(data.id_cliente);
 
-            if(data.credito >= 500) {
-                $("#exceded_credit").css("display", 'block');
-                $("#exceded_credit").text('Este Cliente sobre paso el limite de credito\n Aún así desea venderle');
-                $("#submit_finish").attr("id","submit_finish");
-                $("#submit_finish").attr("disabled","disabled");
-                $("#forma_pago").attr('disabled','disabled');
+        });
 
-                productosRespaldo = data.productosRespaldo;
-                piezasRespaldo = data.piezasRespaldo;
-                id_venta = data.id_venta;
-                id_cliente = data.id_cliente;
-
-            }else{
-                $("#exceded_credit").css("display", 'none');
-                $("#aceptar").css("display", 'none');
-                $("#rechazar").css("display", 'none');
+    }else{
 
 
+        alert("No has seleccionado ningun producto");
+    }
 
-            }
 
-        }
-        
-        
-    });
 
 
 });
@@ -191,3 +202,10 @@ $("#rechazar").click(function(e) {
 });
 
 
+
+
+
+$('#select_doo').on('change', function() {
+    var value = $(this).val();
+    window.location.href = "http://127.0.0.1:8000/products/show="+value;
+});

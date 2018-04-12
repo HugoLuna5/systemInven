@@ -102,7 +102,7 @@
                             <div class="col-xs-8 invoice-order"><span class="invoice-id">Factura #{{$md5}}</span><span class="incoice-date"> {{$fecha}}</span></div>
                         </div>
                         <div class="row invoice-data">
-                            <div class="col-xs-5 invoice-person"><span class="name">Mini Super Cynti Donny</span><span>Developer and Designer</span><span>hugo@lunainc.com.mx</span><span>6## H. Galeana</span><span> Tantoyuca, Ver. México</span></div>
+                            <div class="col-xs-5 invoice-person"><span class="name">Mini Super Cynthi</span><span>Administrador</span><span>hugo@lunainc.com.mx</span><span>323 H. Galeana</span><span> Tantoyuca, Ver. México</span></div>
                             <div class="col-xs-2 invoice-payment-direction"><i class="icon mdi mdi-chevron-right"></i></div>
                             <div class="col-xs-5 invoice-person"><span class="name">{{$cliente->nombre}}</span><span>Consumidor</span><span>{{$cliente->correo}}</span><span>{{$cliente->direccion}}</span><span>{{$cliente->telefono}}</span></div>
                         </div>
@@ -111,18 +111,23 @@
                                 <table class="invoice-details">
                                     <tr>
                                         <th style="width:60%">Descripción</th>
-                                        <th style="width:17%" class="hours">Cantida</th>
+                                        <th style="width:17%" class="hours">Cantidad</th>
                                         <th style="width:15%" class="amount">Total</th>
                                     </tr>
                                     @foreach($compras as $compra)
 
                                         <tr>
-                                            <td class="description">{{$compra->producto}}</td>
+                                            <td class="description">{{$compra->producto}}<br>Fehca de compra: {{$compra->created_at}}<br>Precio C/U: {{$compra->precio/$compra->piezas}}</td>
                                             <td class="hours">{{$compra->piezas}}</td>
                                             <td class="amount">${{$compra->precio}}</td>
                                         </tr>
 
                                     @endforeach
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-center">Total: {{$total}}</td>
+                                    </tr>
 
                                 </table>
                             </div>

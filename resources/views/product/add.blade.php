@@ -172,6 +172,18 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Categoria</label>
                                     <div class="col-sm-6">
+                                        <select class="select2" name="estado_factura">
+                                            <option value="Facturado">Facturado</option>
+                                            <option value="No facturado">No facturado</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Categoria</label>
+                                    <div class="col-sm-6">
                                         <select class="select2" name="categoria">
                                             <optgroup label="ABARROTES">
                                                 <option value="Aceite comestibles">Aceite comestibles</option>
@@ -362,6 +374,98 @@
                                                 <option value="Antiácidos">Antiácidos</option>
                                             </optgroup>
 
+                                            <optgroup label="HIGIENE PERSONAL">
+
+                                                <option value="Toallas húmedas">Toallas húmedas</option>
+                                                <option value="Aceite para bebe">Aceite para bebe</option>
+                                                <option value="Toallas femeninas">Toallas femeninas</option>
+                                                <option value="Algodón">Algodón</option>
+                                                <option value="Tinte para el cabello">Tinte para el cabello</option>
+                                                <option value="Biberones">Biberones</option>
+                                                <option value="Talco">Talco</option>
+                                                <option value="Cepillo de dientes">Cepillo de dientes</option>
+                                                <option value="Shampoo/ Acondicionador">Shampoo/ Acondicionador</option>
+                                                <option value="Cotonetes">Cotonetes</option>
+                                                <option value="Rastrillos">Rastrillos</option>
+                                                <option value="Crema corporal/facial">Crema corporal/facial</option>
+                                                <option value="Papel higiénico">Papel higiénico</option>
+                                                <option value="Crema para afeitar">Crema para afeitar</option>
+                                                <option value="Pañuelos faciales">Pañuelos faciales</option>
+                                                <option value="Dentífricos">Dentífricos</option>
+                                                <option value="Pañuelos desechables">Pañuelos desechables</option>
+                                                <option value="Desodorantes en barra/aerosol">Desodorantes en barra/aerosol</option>
+                                                <option value="Maquillaje">Maquillaje</option>
+                                                <option value="Enjuague bucal">Enjuague bucal</option>
+                                                <option value="Lubricantes para labios">Lubricantes para labios</option>
+                                                <option value="Gel/spray">Gel/spray</option>
+                                                <option value="Loción hidratante">Loción hidratante</option>
+                                                <option value="Jabones corporales/tocados">Jabones corporales/tocados</option>
+
+                                            </optgroup>
+
+                                            <optgroup label="USO DOMESTICO">
+
+                                                <option value="Suavizante de telas">Suavizante de telas</option>
+                                                <option value="Ácido muriático">Ácido muriático</option>
+                                                <option value="Sosa caustica">Sosa caustica</option>
+                                                <option value="Aluminio">Aluminio</option>
+                                                <option value="Pilas">Pilas</option>
+                                                <option value="Shampoo para ropa">Shampoo para ropa</option>
+                                                <option value="Servilletas">Servilletas</option>
+                                                <option value="Servitoallas">Servitoallas</option>
+                                                <option value="Aromatizantes">Aromatizantes</option>
+                                                <option value="Cera para automóvil">Cera para automóvil</option>
+                                                <option value="Cera para calzados">Cera para calzados</option>
+                                                <option value="Pastillas sanitarias">Pastillas sanitarias</option>
+                                                <option value="Limpiadores líquidos">Limpiadores líquidos</option>
+                                                <option value="Limpiadores para pisos">Limpiadores para pisos</option>
+                                                <option value="Jabón de barra">Jabón de barra</option>
+                                                <option value="Cerillos">Cerillos</option>
+                                                <option value="Cloro/Blanqueador">Cloro/Blanqueador</option>
+                                                <option value="Cloro para ropa">Cloro para ropa</option>
+                                                <option value="Jabón en barra">Jabón en barra</option>
+                                                <option value="Insecticidas">Insecticidas</option>
+                                                <option value="Fibras limpiadoras">Fibras limpiadoras</option>
+                                                <option value="Desinfectantes">Desinfectantes</option>
+                                                <option value="Detergentes para trastes">Detergentes para trastes</option>
+                                                <option value="Detergente para ropa">Detergente para ropa</option>
+
+
+                                            </optgroup>
+
+
+                                            <optgroup label="HELADOS">
+                                                <option value="Paletas/ Helados">Paletas/ Helados</option>
+                                            </optgroup>
+
+
+                                            <optgroup label="JARCERIA / PRODUCTOS DE LIMPIEZA:">
+                                                <option value="Veladoras/Velas">Veladoras/Velas</option>
+                                                <option value="Cepillo de plástico">Cepillo de plástico</option>
+                                                <option value="Vasos desechables">Vasos desechables</option>
+                                                <option value="Cinta adhesiva">Cinta adhesiva</option>
+                                                <option value="Cucharas de plástico">Cucharas de plástico</option>
+                                                <option value="Escobas/Trapeadores/Mechudos">Escobas/Trapeadores/Mechudos</option>
+                                                <option value="Trampas para ratas">Trampas para ratas</option>
+                                                <option value="Tenedores de plástico">Tenedores de plástico</option>
+                                                <option value="Extensiones/Multicontacto">Extensiones/Multicontacto</option>
+                                                <option value="Recogedor de metal/plástico">Recogedor de metal/plástico</option>
+                                                <option value="Popotes">Popotes</option>
+                                                <option value="Platos desechables">Platos desechables</option>
+                                                <option value="Focos">Focos</option>
+                                                <option value="Fusibles">Fusibles</option>
+                                                <option value="Jergas/Franelas">Jergas/Franelas</option>
+                                                <option value="Matamoscas">Matamoscas</option>
+                                                <option value="Pegamento">Pegamento</option>
+                                                <option value="Mecate/cuerda">Mecate/cuerda</option>
+                                            </optgroup>
+
+                                            <optgroup label="OTROS">
+                                                <option value="Tarjetas telefónicas">Tarjetas telefónicas</option>
+                                                <option value="Recargas móviles">Recargas móviles</option>
+                                                <option value="Hielo">Hielo</option>
+                                                <option value="Cigarros">Cigarros</option>
+                                            </optgroup>
                                         </select>
                                     </div>
                                 </div>

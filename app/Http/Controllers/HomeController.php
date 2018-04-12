@@ -70,7 +70,15 @@ class HomeController extends Controller
 
         $productos = 0;
         $pro = Product::all();
-        $productosAll = Product::latest()->simplePaginate(1);
+        $prodAll = Product::latest()->simplePaginate(1);
+
+        if ($prodAll[0] == null){
+            $productosAll = 0;
+        }else{
+
+            $productosAll = $prodAll[0]->id;
+
+        }
         foreach ($pro as $pr) {
 
             if ($this->getCreatedAtAttribute($pr->created_at) == $fecha){

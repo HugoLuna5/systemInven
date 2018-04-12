@@ -6,14 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Mini Super Cynthi</title>
-    <link rel="stylesheet" type="text/css" href="assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/lib/material-design-icons/css/material-design-iconic-font.min.css"/><!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="{{url("assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css")}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url("assets/lib/material-design-icons/css/material-design-iconic-font.min.css")}}"/>
+
+    <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" type="text/css" href="assets/lib/datatables/css/dataTables.bootstrap.min.css"/>
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{url("assets/lib/datatables/css/dataTables.bootstrap.min.css")}}"/>
+    <link rel="stylesheet" href="{{url("assets/css/style.css")}}" type="text/css"/>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+
+
+    <link rel="stylesheet" type="text/css" href="{{url("assets/lib/jquery.gritter/css/jquery.gritter.css")}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url("assets/lib/datetimepicker/css/bootstrap-datetimepicker.min.css")}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url("assets/lib/select2/css/select2.min.css")}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url("assets/lib/bootstrap-slider/css/bootstrap-slider.css")}}"/>
+
+
 </head>
 <body>
 <div class="be-wrapper">
@@ -96,15 +106,123 @@
                 <div class="col-sm-12">
                     <div class="panel panel-default panel-table">
                         <div class="panel-heading">Todos los productos
+                            <a href="{{url("/facturas-dia")}}" class="btn btn-success">Reporte del día</a>
                             <div class="tools"><span class="icon mdi mdi-download"></span><span class="icon mdi mdi-more-vert"></span></div>
                         </div>
                         <div class="panel-body">
-                            <table id="table1" class="table table-striped table-hover table-fw-widget">
+                            <table id="" class="table table-striped table-hover table-fw-widget dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                                <div class="container">
+
+
+                                    <div class="row ">
+                                        <div class="col-sm-6">
+                                            <div class="dataTables_length" id="table1_length">
+                                                <label class="col-sm-3 control-label">Mostrar
+                                                    <select id="select_doo" name="table1_length" aria-controls="table1" class="form-control input-sm">
+                                                        @if($count == 10)
+                                                         <option selected id="paginate_uno" value="10">10</option>
+                                                         <option id="paginate_dos" value="25">25</option>
+                                                         <option id="paginate_tres" value="50">50</option>
+                                                         <option id="paginate_cuatro" value="100">100</option>
+
+                                                        @elseif($count == 25)
+                                                         <option id="paginate_uno" value="10">10</option>
+                                                         <option selected id="paginate_dos" value="25">25</option>
+                                                         <option id="paginate_tres" value="50">50</option>
+                                                         <option id="paginate_cuatro" value="100">100</option>
+
+                                                        @elseif($count == 50)
+                                                          <option id="paginate_uno" value="10">10</option>
+                                                          <option id="paginate_dos" value="25">25</option>
+                                                          <option selected id="paginate_tres" value="50">50</option>
+                                                          <option id="paginate_cuatro" value="100">100</option>
+
+                                                        @else
+                                                          <option id="paginate_uno" value="10">10</option>
+                                                          <option id="paginate_dos" value="25">25</option>
+                                                          <option id="paginate_tres" value="50">50</option>
+                                                          <option selected id="paginate_cuatro" value="100">100</option>
+
+                                                        @endif
+                                                    </select> productos</label>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-md-2"></div>
+                                                <div class="col-md-2">
+
+
+
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div id="table1_filter" class="dataTables_filter">
+                                                        <label >Buscar:
+                                                            <form role="form" method="get" action='{{url("/search")}}' class="form-inline">
+                                                                <input name="s" id="s" type="search" class="form-control input-sm" placeholder="" aria-controls="table1">
+                                                            </form>
+                                                        </label>
+                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+
+
+                                    <!--
+                                    <div class="col-md-6">
+
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Mostrar</label>
+                                            <div class="col-sm-6">
+                                                <select class="form-control" name="categoria">
+                                                        <option value="10" selected>10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                </select>
+                                            </div>
+                                            <label class="col-sm-3 control-label">Productos</label>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-6">
+
+
+                                        <div class="form-group">
+
+                                            <form action="" class="form-inline">
+                                                <label class="col-sm-3 control-label">Buscar</label>
+                                                <div class="col-sm-6">
+                                                    <input type="search" class="form-control input-sm" placeholder="" aria-controls="table1">
+                                                </div>
+                                            </form>
+
+
+                                        </div>
+
+
+                                    </div>
+                                    -->
+
+                                    <hr>
                                 <thead>
                                 <tr>
                                     <th>Nombre</th>
+                                    <th>Rep.</th>
                                     <th>Precio</th>
                                     <th>Cod. Barras</th>
+                                    <th>Estado</th>
                                     <th>Categoria</th>
                                     <th>Piezas</th>
                                 </tr>
@@ -118,6 +236,18 @@
                                     <td>
                                         {{$producto->nombre}}
 
+                                        <a href="#"
+                                           data-type="text"
+                                           data-pk="{{$producto->id}}"
+                                           data-url="{{url("/productos/update/$producto->id")}}"
+                                           data-title="Nombre"
+                                           data-value="{{$producto->nombre}}"
+                                           class="set-nombre"
+                                           data-name="nombre"></a>
+
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" href="{{url("/facturas-dia/$fecha/producto/$producto->id")}}">Reporte</a>
                                     </td>
                                     <td>
 
@@ -131,7 +261,28 @@
                                            data-name="precio"></a>
 
                                     </td>
-                                    <td>{{$producto->cod_barras}}</td>
+                                    <td>
+                                        <a href="#"
+                                           data-type="text"
+                                           data-pk="{{$producto->id}}"
+                                           data-url="{{url("/productos/update/$producto->id")}}"
+                                           data-title="Estado"
+                                           data-value="{{$producto->cod_barras}}"
+                                           class="set-cod_barras"
+                                           data-name="cod_barras"></a>
+
+                                    </td>
+                                    <td class="center">
+
+                                        <a href="#"
+                                           data-type="select"
+                                           data-pk="{{$producto->id}}"
+                                           data-url="{{url("/productos/update/$producto->id")}}"
+                                           data-title="Estado"
+                                           data-value="{{$producto->estado_producto}}"
+                                           class="set-estado"
+                                           data-name="estado_producto"></a>
+                                    </td>
                                     <td class="center">{{$producto->categoria}}</td>
                                     <td class="center">
 
@@ -151,7 +302,15 @@
 
 
                                 </tbody>
+
                             </table>
+                        <center>
+
+
+                            {{ $productos->appends(['show' => $count])->links() }}
+
+
+                        </center>
                         </div>
                     </div>
                 </div>
@@ -360,20 +519,30 @@
         </div>
     </nav>
 </div>
-<script src="assets/lib/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
-<script src="assets/js/main.js" type="text/javascript"></script>
-<script src="assets/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="assets/lib/datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="assets/lib/datatables/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
-<script src="assets/lib/datatables/plugins/buttons/js/dataTables.buttons.js" type="text/javascript"></script>
-<script src="assets/lib/datatables/plugins/buttons/js/buttons.html5.js" type="text/javascript"></script>
-<script src="assets/lib/datatables/plugins/buttons/js/buttons.flash.js" type="text/javascript"></script>
-<script src="assets/lib/datatables/plugins/buttons/js/buttons.print.js" type="text/javascript"></script>
-<script src="assets/lib/datatables/plugins/buttons/js/buttons.colVis.js" type="text/javascript"></script>
-<script src="assets/lib/datatables/plugins/buttons/js/buttons.bootstrap.js" type="text/javascript"></script>
-<script src="assets/js/app-tables-datatables.js" type="text/javascript"></script>
+<script src="{{url("assets/lib/jquery/jquery.min.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/js/main.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/lib/select2/js/select2.min.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/js/app-form-elements.js")}}" type="text/javascript"></script>
+
+<script src="{{url("assets/lib/bootstrap/dist/js/bootstrap.min.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/lib/datatables/js/jquery.dataTables.min.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/lib/datatables/js/dataTables.bootstrap.min.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/lib/datatables/plugins/buttons/js/dataTables.buttons.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/lib/datatables/plugins/buttons/js/buttons.html5.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/lib/datatables/plugins/buttons/js/buttons.flash.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/lib/datatables/plugins/buttons/js/buttons.print.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/lib/datatables/plugins/buttons/js/buttons.colVis.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/lib/datatables/plugins/buttons/js/buttons.bootstrap.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/js/app-tables-datatables.js")}}" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+
+<script src="{{url("/js/posts-ajax.js")}}"></script>
+
+
+
+
+
 
 <script type="text/javascript">
     $.fn.editable.defaults.mode = 'inline';
@@ -386,6 +555,18 @@
         $(".set-cantidad").editable();
         $(".set-precio").editable();
         $(".set-nombre").editable();
+        $(".set-cod_barras").editable();
+        $(".set-estado").editable({
+            source:[
+                {
+                    value: "No facturado", text: "No facturado"
+                },
+                {
+                    value: "Facturado", text: "Facturado"
+                }
+            ]
+        });
+
 
 
     });

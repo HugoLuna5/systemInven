@@ -26,7 +26,6 @@ Route::get('/home', 'HomeController@index')->name('home');
  */
 
 
-Route::get("/products", "ProductController@index");
 Route::get("/add-product", "ProductController@viewCreate");
 Route::post("/add-product", "ProductController@create");
 
@@ -46,6 +45,9 @@ Route::put("/clientes/update/{id}","ClientsController@update");
 
 //adeudos
 Route::get("/adeudos/clientes","ClientsController@adeudos");
+
+
+Route::get('clientes/{id}/historial-de-compras','ClientsController@reporte');
 
 
 /*
@@ -77,3 +79,22 @@ Route::get('/factura/{id_venta}/{md5}/cliente/{id_cliente}','VentasController@fa
 Route::get('/proveedores','HomeController@proveedor');
 Route::post('/proveedores','HomeController@proveedorPost');
 Route::get('/delete/evento/{id}','HomeController@proveedorDelete');
+
+
+/*
+ * Facturas routes
+ */
+
+
+Route::get('/facturas-dia','VentasController@facturaDia');
+Route::get('/facturas-dia/{fecha}','VentasController@facturaFecha');
+Route::get('/facturas-dia/{fecha}/producto/{id}','VentasController@facturaProducto');
+
+
+/**
+ *
+ */
+
+Route::get('/products/show={count}','ProductController@index');
+Route::get('/search','ProductController@search');
+Route::get('/products','ProductController@indexDoo');

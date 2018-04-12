@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\model\Client;
+use App\model\ProductosVentas;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\DB;
+
 class ClientsController extends Controller
 {
     /**
@@ -112,6 +116,32 @@ class ClientsController extends Controller
 
 
             return $cliente->$field;
+
+
+
+    }
+
+
+    public function reporte($id){
+
+        $validate =  ProductosVentas::where('id_cliente','=',$id)->first();
+        $compras = ProductosVentas::where('id_cliente','=',$id)->get();
+        if ($validate != null){
+            $cliente = DB::table('client')->where('id','=',$id)->first();
+
+            $md5 = md5($compras[0]->id_venta+$id+'factura_cynthi');
+
+            $dt = Carbon::createFromFormat('Y-m-d H:i:s',$compras[0]->created_at);
+            Carbon::setUtf8(true);
+
+
+
+            $fecha = $dt->formatLocalized('%A %d %B %Y');   ;
+            return view('client.reporte',compact('compras','md5','fecha','cliente'));
+        }else{
+
+            return redirect("/adeudos/clientes");
+        }
 
 
 

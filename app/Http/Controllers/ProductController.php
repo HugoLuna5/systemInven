@@ -14,12 +14,25 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function indexDoo(){
+        $count = 10;
+        $productos = Product::paginate(10);
+        $fecha = date("Y-m-d");
+
+
+        return view("product.index",['productos'=>$productos,'fecha'=>$fecha,'count'=>$count]);
+
+    }
+    public function index($count)
     {
         //
 
-        $productos = Product::all();
-        return view("product.index",['productos'=>$productos]);
+        $productos = Product::paginate($count);
+        $fecha = date("Y-m-d");
+
+
+        return view("product.index",['productos'=>$productos,'fecha'=>$fecha,'count'=>$count]);
     }
 
     /**
@@ -37,6 +50,7 @@ class ProductController extends Controller
         $producto->precio = $request->precio;
         $producto->cod_barras = $request->codigo;
         $producto->categoria = $request->categoria;
+        $producto->estado_producto = $request->estado_factura;
         $producto->cantidad = $request->piezas;
 
         if($producto->save()) {
@@ -80,9 +94,14 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showData($count)
     {
         //
+        $productos = Product::paginate($count);
+        $fecha = date("Y-m-d");
+
+
+        return view("product.index",['productos'=>$productos,'fecha'=>$fecha]);
     }
 
     /**
@@ -119,6 +138,23 @@ class ProductController extends Controller
         $producto->save();
 
         return $producto->$field;
+    }
+
+
+    public function search(Request $request){
+
+        $s = $request->input('s');
+        $count = 50;
+        $productos = Product::latest()
+            ->search($s)
+            ->paginate(50);
+
+
+        $fecha = date("Y-m-d");
+
+
+        return view("product.index",['productos'=>$productos,'fecha'=>$fecha,'count'=>$count]);
+
     }
 
     /**

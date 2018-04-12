@@ -10,19 +10,16 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" type="text/css" href="{{url("assets/lib/jquery.vectormap/jquery-jvectormap-1.2.2.css")}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url("assets/lib/jqvmap/jqvmap.min.css")}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url("assets/lib/datetimepicker/css/bootstrap-datetimepicker.min.css")}}"/>
     <link rel="stylesheet" href="{{url("assets/css/style.css")}}" type="text/css"/>
 </head>
 <body>
-<div class="be-wrapper be-fixed-sidebar">
+<div class="be-wrapper">
     <nav class="navbar navbar-default navbar-fixed-top be-top-header">
         <div class="container-fluid">
             <div class="navbar-header"><a href="{{url("/")}}" class="navbar-brand"></a></div>
             <div class="be-right-navbar">
                 <ul class="nav navbar-nav navbar-right be-user-nav">
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="assets/img/avatar2.png" alt="Avatar"><span class="user-name">{{Auth::user()->name}}</span></a>
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="{{url("assets/img/avatar2.png")}}" alt="Avatar"><span class="user-name">{{Auth::user()->name}}</span></a>
                         <ul role="menu" class="dropdown-menu">
                             <li>
                                 <div class="user-info">
@@ -40,8 +37,7 @@
                         </ul>
                     </li>
                 </ul>
-                <div class="page-title"><span>Tablero</span></div>
-
+                <div class="page-title"><span>Venta</span></div>
             </div>
         </div>
     </nav>
@@ -52,12 +48,12 @@
                     <div class="left-sidebar-content">
                         <ul class="sidebar-elements">
                             <li class="divider">Tablero</li>
-                            <li class="active"><a href="{{url("/")}}"><i class="icon mdi mdi-home"></i><span>Inicio</span></a>
+                            <li ><a href="{{url("/")}}"><i class="icon mdi mdi-home"></i><span>Inicio</span></a>
                             </li>
                             <li class="parent"><a href="#"><i class="icon mdi mdi-face"></i><span>Clientes</span></a>
                                 <ul class="sub-menu">
                                     <li><a href="{{url("/adeudos/clientes")}}"><span class="label label-primary pull-right">New</span>Adeudos</a>
-                                        <li><a href="{{url("/add-client")}}">Agregar Cliente</a></li>
+                                    <li><a href="{{url("/add-client")}}">Agregar Cliente</a></li>
                                     </li>
                                 </ul>
                             </li>
@@ -65,7 +61,7 @@
                             <li ><a href="{{url("/proveedores")}}"><i class="icon mdi mdi-dot-circle"></i><span>Proveedores</span></a>
 
                             </li>
-                            <li class="parent"><a href="#"><i class="icon mdi mdi-border-all"></i><span>Productos</span></a>
+                            <li  class="parent"><a href="#"><i class="icon mdi mdi-border-all"></i><span>Productos</span></a>
                                 <ul class="sub-menu">
                                     <li><a href="{{url("/products")}}">Productos</a>
                                     </li>
@@ -73,7 +69,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li ><a href="{{url("/venta")}}"><i class="icon mdi mdi-layers"></i><span>Movimientos</span></a>
+                            <li class="active"><a href="{{url("/venta")}}"><i class="icon mdi mdi-layers"></i><span>Movimientos</span></a>
 
                             </li>
 
@@ -87,294 +83,85 @@
         </div>
     </div>
     <div class="be-content">
+        <div class="page-head">
+            <h2 class="page-head-title">Factura</h2>
+            <ol class="breadcrumb">
+                <li><a href="#">Movimientos</a></li>
+                <li><a href="#">Ventas</a></li>
+                <li class="active">Factura</li>
+            </ol>
+        </div>
         <div class="main-content container-fluid">
             <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-3">
-                    <div class="widget widget-tile">
-                        <div id="spark1" class="chart sparkline"></div>
-                        <div class="data-info">
-                            <div class="desc">Nuevos productos</div>
-
-
-                            @if($productos > 100)
-
-                                <div class="value"><span class="indicator indicator-positive mdi mdi-chevron-up"></span><span data-toggle="counter" data-end="{{$productos}}" class="number">{{$productos}}</span>
-                                </div>
-
-                            @else
-
-                                <div class="value"><span class="indicator indicator-positive mdi mdi-chevron-down"></span><span data-toggle="counter" data-end="{{$productos}}" class="number">{{$productos}}</span>
-                                </div>
-
-
-                            @endif
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-6 col-lg-3">
-                    <div class="widget widget-tile">
-                        <div id="spark2" class="chart sparkline"></div>
-                        <div class="data-info">
-                            <div class="desc">Ventas Mensuales</div>
-
-
-
-                            @if($ingresosMes > 500)
-                                <div class="value"><span class="indicator indicator-negative mdi mdi-chevron-up"></span><span data-toggle="counter" data-end="{{$ingresosMes}}" class="number">{{$ingresosMes}}</span>
-                                </div>
-
-                            @else
-
-                                <div class="value"><span class="indicator indicator-negative mdi mdi-chevron-down"></span><span data-toggle="counter" data-end="{{$ingresosMes}}" class="number">{{$ingresosMes}}</span>
-                                </div>
-                            @endif
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-6 col-lg-3">
-                    <div class="widget widget-tile">
-                        <div id="spark3" class="chart sparkline"></div>
-                        <div class="data-info">
-                            <div class="desc">Productos</div>
-
-
-
-
-
-                            @if($productosAll> 100)
-
-                                <div class="value"><span class="indicator indicator-positive mdi mdi-chevron-up"></span><span data-toggle="counter" data-end="{{$productosAll}}}" class="number">{{$productosAll}}}</span>
-                                </div>
-
-                            @else
-
-                                <div class="value"><span class="indicator indicator-positive mdi mdi-chevron-down"></span><span data-toggle="counter" data-end="{{$productosAll}}}" class="number">{{$productosAll}}}</span>
-                                </div>
-
-
-                            @endif
-
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-6 col-lg-3">
-                    <div class="widget widget-tile">
-                        <div id="spark4" class="chart sparkline"></div>
-                        <div class="data-info">
-                            <div class="desc">Ingresos</div>
-
-
-                            @if($ingresos > 500)
-                                <div class="value"><span class="indicator indicator-negative mdi mdi-chevron-up"></span><span data-toggle="counter" data-end="{{$ingresos}}" class="number">{{$ingresos}}</span>
-                                </div>
-
-                                @else
-
-                                <div class="value"><span class="indicator indicator-negative mdi mdi-chevron-down"></span><span data-toggle="counter" data-end="{{$ingresos}}" class="number">{{$ingresos}}</span>
-                                </div>
-                            @endif
-
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <!--
                 <div class="col-md-12">
-                    <div class="widget widget-fullwidth be-loading">
-                        <div class="widget-head">
-                            <div class="tools">
-                                <div class="dropdown"><span data-toggle="dropdown" class="icon mdi mdi-more-vert visible-xs-inline-block dropdown-toggle"></span>
-                                    <ul role="menu" class="dropdown-menu">
-                                        <li><a href="#">Semana</a></li>
-                                        <li><a href="#">Mes</a></li>
-                                        <li><a href="#">Año</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Hoy</a></li>
-                                    </ul>
-                                </div><span class="icon mdi mdi-chevron-down"></span><span class="icon toggle-loading mdi mdi-refresh-sync"></span><span class="icon mdi mdi-close"></span>
+                    <div class="invoice">
+                        <div class="row invoice-header">
+                            <div class="col-xs-4">
+                                <div class="invoice-logo"></div>
                             </div>
-                            <div class="button-toolbar hidden-xs">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default">Semana</button>
-                                    <button type="button" class="btn btn-default active">Mes</button>
-                                    <button type="button" class="btn btn-default">Año</button>
-                                </div>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default">Hoy</button>
-                                </div>Movimientos Recientes</span>
+                            <div class="col-xs-8 invoice-order"><span class="invoice-id">Factura #{{$md5}}</span><span class="incoice-date"> {{$fecha}}</span></div>
                         </div>
-                        <div class="widget-chart-container">
-                            <div class="widget-chart-info">
-                                <ul class="chart-legend-horizontal">
-                                    <li><span data-color="main-chart-color1"></span> Compras</li>
-                                    <li><span data-color="main-chart-color2"></span> Planes</li>
-                                    <li><span data-color="main-chart-color3"></span> Servicios</li>
+                        <div class="row invoice-data">
+                            <div class="col-xs-5 invoice-person"><span class="name">Mini Super Cynthi</span><span>Administrador</span><span>hugo@lunainc.com.mx</span><span>323 H. Galeana</span><span> Tantoyuca, Ver. México</span></div>
+                            <div class="col-xs-2 invoice-payment-direction"><i class="icon mdi mdi-chevron-right"></i></div>
+                            <div class="col-xs-5 invoice-person"><span class="name">{{$cliente->nombre}}</span><span>Consumidor</span><span>{{$cliente->correo}}</span><span>{{$cliente->direccion}}</span><span>{{$cliente->telefono}}</span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="invoice-details">
+                                    <tr>
+                                        <th style="width:60%">Descripción</th>
+                                        <th style="width:17%" class="hours">Cantidad</th>
+                                        <th style="width:15%" class="amount">Total</th>
+                                    </tr>
+                                    @foreach($compras as $compra)
+
+                                        <tr>
+                                            <td class="description">{{$compra->producto}}<br>Fehca de compra: {{$compra->created_at}}<br>Precio C/U: {{$compra->precio/$compra->piezas}}</td>
+                                            <td class="hours">{{$compra->piezas}}</td>
+                                            <td class="amount">${{$compra->precio}}</td>
+                                        </tr>
+
+                                    @endforeach
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 invoice-payment-method"><span class="title">Metodo de pago</span><span>Contado/Credito</span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 invoice-message"><span class="title">Gracias por la compra</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis massa nisl. Sed fringilla turpis id mi ultrices, et faucibus ipsum aliquam. Sed ut eros placerat, facilisis est eu, congue felis.</p>
+                            </div>
+                        </div>
+                        <div class="row invoice-company-info">
+                            <div class="col-sm-6 col-md-2 logo"><img src="{{url("assets/img/logo-symbol.png")}}" alt="Logo-symbol"></div>
+                            <div class="col-sm-6 col-md-4 summary"><span class="title">Mini Super Cynthi</span>
+                                <p>Tenemos de todo. </p>
+                            </div>
+                            <div class="col-sm-6 col-md-3 phone">
+                                <ul class="list-unstyled">
+                                    <li>+1(535)-8999278</li>
+                                    <li>+1(656)-3558302</li>
                                 </ul>
                             </div>
-                            <div class="widget-counter-group widget-counter-group-right">
-                                <div class="counter counter-big">
-                                    <div class="value">25%</div>
-                                    <div class="desc">Compras</div>
-                                </div>
-                                <div class="counter counter-big">
-                                    <div class="value">5%</div>
-                                    <div class="desc">Planes</div>
-                                </div>
-                                <div class="counter counter-big">
-                                    <div class="value">5%</div>
-                                    <div class="desc">Servicios</div>
-                                </div>
+                            <div class="col-sm-6 col-md-3 email">
+                                <ul class="list-unstyled">
+                                    <li>hugo@lunainc.com.mx</li>
+                                    <li>hugo@lunainc.com.mx</li>
+                                </ul>
                             </div>
-                            <div id="main-chart" style="height: 260px;"></div>
                         </div>
-                        <div class="be-spinner">
-                            <svg width="40px" height="40px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                                <circle fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="30" class="circle"></circle>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-                -->
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="panel panel-default panel-table">
-                        <div class="panel-heading">
-                            <div class="title">Quedan pocos productos</div>
-                        </div>
-                        <div class="panel-body table-responsive">
-                            <table class="table table-striped table-borderless">
-                                <thead>
-                                <tr>
-                                    <th style="width:40%;">Producto</th>
-                                    <th class="number">Precio</th>
-                                    <th style="width:20%;">Categoria</th>
-                                    <th style="width:20%;">Piezas</th>
-                                    <th style="width:5%;" class="actions"></th>
-                                </tr>
-                                </thead>
-                                <tbody class="no-border-x">
-                                @foreach($pocosProductos as $producto)
-
-                                    <tr>
-                                        <td>{{$producto->nombre}}</td>
-                                        <td class="number">${{$producto->precio}}</td>
-                                        <td>{{$producto->categoria}}</td>
-                                        <td class="text-danger"><center>{{$producto->cantidad}}</center></td>
-                                        <td class="actions"><a href="{{url("/products")}}" class="icon"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                                    </tr>
-
-                                @endforeach
-
-
-                                </tbody>
-                            </table>
+                        <div class="row invoice-footer">
+                            <div class="col-md-12">
+                                <button href="#" class="btn btn-lg btn-space btn-default" onclick="window.print();">Guardad como PDF</button>
+                                <button class="btn btn-lg btn-space btn-default" onclick="window.print();">Imprimir</button>
+                                <button class="btn btn-lg btn-space btn-primary">Compartir</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="panel panel-default panel-table">
-                        <div class="panel-heading">
-                            <div class="title">Clientes pendientes</div>
-                        </div>
-                        <div class="panel-body table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                <tr>
-                                    <th style="width:37%;">Cliente</th>
-                                    <th style="width:36%;">Telefono</th>
-                                    <th>Deuda</th>
-                                    <th class="actions"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-
-                                @foreach($clientesPendientes as $cliente)
-
-
-
-                                    @if($cliente->sexo == "Hombre")
-
-
-                                        <tr>
-                                            <td class="user-avatar"> <img src="assets/img/avatar4.png" alt="Avatar">{{$cliente->nombre}}</td>
-                                            <td>{{$cliente->telefono}}</td>
-                                            <td class="text-danger"><center>{{$cliente->credito}}</center></td>
-                                            <td class="actions"><a href="{{url("/adeudos/clientes")}}" class="icon"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                                        </tr>
-
-
-                                    @else
-
-
-
-                                        <tr>
-                                            <td class="user-avatar"> <img src="assets/img/avatar6.png" alt="Avatar">{{$cliente->nombre}}</td>
-                                            <td>{{$cliente->telefono}}</td>
-                                            <td class="text-danger"><center>{{$cliente->credito}}</center></td>
-                                            <td class="actions"><a href="{{url("/adeudos/clientes")}}" class="icon"><i class="mdi mdi-plus-circle-o"></i></a></td>
-                                        </tr>
-
-
-
-                                        @endif
-
-
-
-
-
-                                @endforeach
-
-
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Proveedores Pendientes</div>
-                        <div class="panel-body">
-
-                            <ul class="user-timeline user-timeline-compact">
-                            @foreach($eventos as $evento)
-
-
-                                    <li class="latest">
-                                        <div class="user-timeline-date">
-
-                                            <a href="{{url("/delete/evento/$evento->id")}}" class="btn btn-primary">Eliminar</a>
-
-                                        </div>
-                                        <div class="user-timeline-title">{{$evento->nombre}}</div>
-                                        <div class="user-timeline-description">{{$evento->fecha}}</div>
-                                    </li>
-
-
-                            @endforeach
-
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -579,29 +366,16 @@
         </div>
     </nav>
 </div>
-<script src="assets/lib/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
-<script src="assets/js/main.js" type="text/javascript"></script>
-<script src="assets/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-flot/jquery.flot.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-flot/jquery.flot.pie.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-flot/jquery.flot.resize.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-flot/plugins/jquery.flot.orderBars.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-flot/plugins/curvedLines.js" type="text/javascript"></script>
-<script src="assets/lib/jquery.sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
-<script src="assets/lib/countup/countUp.min.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-<script src="assets/lib/jqvmap/jquery.vmap.min.js" type="text/javascript"></script>
-<script src="assets/lib/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-<script src="assets/js/app-dashboard.js" type="text/javascript"></script>
+<script src="{{url("assets/lib/jquery/jquery.min.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/js/main.js")}}" type="text/javascript"></script>
+<script src="{{url("assets/lib/bootstrap/dist/js/bootstrap.min.js")}}" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         //initialize the javascript
         App.init();
-        App.dashboard();
-
     });
+
 </script>
-</div>
 </body>
 </html>
