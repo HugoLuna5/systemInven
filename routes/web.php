@@ -29,6 +29,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get("/add-product", "ProductController@viewCreate");
 Route::post("/add-product", "ProductController@create");
 
+
+Route::get("/add-product-exist", "ProductController@viewCreateExist");
+Route::post("/add-product-exist", "ProductController@updateProduct");
+
 //update
 
 Route::put("/productos/update/{id}","ProductController@updatePiezas");

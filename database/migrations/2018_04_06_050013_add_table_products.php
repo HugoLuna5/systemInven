@@ -18,6 +18,9 @@ class AddTableProducts extends Migration
             $table->string('nombre');
             $table->decimal('precio');
             $table->string("cod_barras");
+            $table->string("estado_producto");
+            $table->string("estado_producto_facturado");
+            $table->string("estado_producto_no_facturado");
             $table->string("categoria");
             $table->string("cantidad");
             $table->timestamps();

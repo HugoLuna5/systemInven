@@ -4,22 +4,58 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <title>Mini Super Cynthi</title>
-    <link rel="stylesheet" type="text/css" href="{{url("assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css")}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url("assets/lib/material-design-icons/css/material-design-iconic-font.min.css")}}"/><!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="assets/lib/jquery.gritter/css/jquery.gritter.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/lib/material-design-icons/css/material-design-iconic-font.min.css"/><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="{{url("assets/css/style.css")}}" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="assets/lib/datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/lib/select2/css/select2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap-slider/css/bootstrap-slider.css"/>
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css"/>
 </head>
 <body>
 <div class="be-wrapper">
+    <!--Success-->
+    @if(session('notificationGroupSuccess'))
+
+        <div class="alert alert-success" role="alert">
+
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                &times;
+            </button>
+            <center><strong>{{session('notificationGroupSuccess')}}</strong></center>
+        </div>
+
+
+
+    @endif
+
+
+
+<!--Error-->
+    @if(session('notificationGroupError'))
+
+        <div class="alert alert-danger" role="alert">
+
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                &times;
+            </button>
+            <center><strong>{{session('notificationGroupError')}}</strong></center>
+        </div>
+
+
+
+    @endif
     <nav class="navbar navbar-default navbar-fixed-top be-top-header">
         <div class="container-fluid">
             <div class="navbar-header"><a href="{{url("/")}}" class="navbar-brand"></a></div>
             <div class="be-right-navbar">
                 <ul class="nav navbar-nav navbar-right be-user-nav">
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="{{url("assets/img/avatar2.png")}}" alt="Avatar"><span class="user-name">{{Auth::user()->name}}</span></a>
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="assets/img/avatar2.png" alt="Avatar"><span class="user-name">{{Auth::user()->name}}</span></a>
                         <ul role="menu" class="dropdown-menu">
                             <li>
                                 <div class="user-info">
@@ -37,7 +73,7 @@
                         </ul>
                     </li>
                 </ul>
-                <div class="page-title"><span>Venta</span></div>
+                <div class="page-title"><span>Agregar Productos</span></div>
             </div>
         </div>
     </nav>
@@ -67,15 +103,13 @@
                                     </li>
                                     <li ><a href="{{url("/add-product")}}">Agregar un nuevo producto</a>
                                     </li>
-                                    <li ><a href="{{url("/add-product-exist")}}">Agregar producto existente</a>
+                                    <li class="active" ><a href="{{url("/add-product-exist")}}">Agregar producto existente</a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="active"><a href="{{url("/venta")}}"><i class="icon mdi mdi-layers"></i><span>Movimientos</span></a>
+                            <li ><a href="{{url("/venta")}}"><i class="icon mdi mdi-layers"></i><span>Movimientos</span></a>
 
                             </li>
-
-
 
                         </ul>
                     </div>
@@ -84,92 +118,78 @@
 
         </div>
     </div>
+
+
+
+
     <div class="be-content">
         <div class="page-head">
-            <h2 class="page-head-title">Factura</h2>
-            <ol class="breadcrumb">
-                <li><a href="#">Movimientos</a></li>
-                <li><a href="#">Ventas</a></li>
-                <li class="active">Factura</li>
+            <h2 class="page-head-title">Productos</h2>
+            <ol class="breadcrumb page-head-nav">
+                <li><a href="{{url("/products/exist")}}">Productos</a></li>
+                <li class="active">Agregar</li>
+
             </ol>
         </div>
         <div class="main-content container-fluid">
+
+            <!--Sizing-->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="invoice">
-                        <div class="row invoice-header">
-                            <div class="col-xs-4">
-                                <div class="invoice-logo"></div>
-                            </div>
-                            <div class="col-xs-8 invoice-order"><span class="invoice-id">Factura #{{$md5}}</span><span class="incoice-date"> {{$fecha}}</span></div>
-                        </div>
-                        <div class="row invoice-data">
-                            <div class="col-xs-5 invoice-person"><span class="name">Mini Super Cynthi</span><span>Administrador</span><span>hugo@lunainc.com.mx</span><span>323 H. Galeana</span><span> Tantoyuca, Ver. México</span></div>
-                            <div class="col-xs-2 invoice-payment-direction"><i class="icon mdi mdi-chevron-right"></i></div>
-                            <div class="col-xs-5 invoice-person"><span class="name">{{$cliente->nombre}}</span><span>Consumidor</span><span>{{$cliente->correo}}</span><span>{{$cliente->direccion}}</span><span>{{$cliente->telefono}}</span></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="invoice-details">
-                                    <tr>
-                                        <th style="width:60%">Descripción</th>
-                                        <th style="width:17%" class="hours">Cantidad</th>
-                                        <th style="width:15%" class="amount">Total</th>
-                                    </tr>
-                                    @foreach($compras as $compra)
+                    <div class="panel panel-default panel-border-color panel-border-color-primary">
+                        <div class="panel-heading panel-heading-divider">Agregar un cliente<span class="panel-subtitle">Rellena los campos para crear tu producto</span></div>
+                        <div class="panel-body">
+                            <form action="{{url("/add-product-exist")}}" method="POST" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
+                                {{ csrf_field() }}
 
-                                        <tr>
-                                            <td class="description">{{$compra->producto}}<br>Fehca de compra: {{$compra->created_at}}<br>Precio C/U: {{$compra->precio/$compra->piezas}}</td>
-                                            <td class="hours">{{$compra->piezas}}</td>
-                                            <td class="amount">${{$compra->precio}}</td>
-                                        </tr>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Nombre del producto</label>
+                                    <div class="col-sm-6">
 
-                                    @endforeach
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-center">Total: {{$total}}</td>
-                                    </tr>
+                                        <select class="select2" name="nombre" id="nombre">
+                                            @foreach($products as $producto)
+                                            <option value="{{$producto->id}}">{{$producto->nombre}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 invoice-payment-method"><span class="title">Metodo de pago</span><span>Contado/Credito</span></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 invoice-message"><span class="title">Gracias por la compra</span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis massa nisl. Sed fringilla turpis id mi ultrices, et faucibus ipsum aliquam. Sed ut eros placerat, facilisis est eu, congue felis.</p>
-                            </div>
-                        </div>
-                        <div class="row invoice-company-info">
-                            <div class="col-sm-6 col-md-2 logo"><img src="{{url("assets/img/logo-symbol.png")}}" alt="Logo-symbol"></div>
-                            <div class="col-sm-6 col-md-4 summary"><span class="title">Mini Super Cynthi</span>
-                                <p>Tenemos de todo. </p>
-                            </div>
-                            <div class="col-sm-6 col-md-3 phone">
-                                <ul class="list-unstyled">
-                                    <li>+1(535)-8999278</li>
-                                    <li>+1(656)-3558302</li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6 col-md-3 email">
-                                <ul class="list-unstyled">
-                                    <li>hugo@lunainc.com.mx</li>
-                                    <li>hugo@lunainc.com.mx</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="row invoice-footer">
-                            <div class="col-md-12">
-                                <button href="#" class="btn btn-lg btn-space btn-default" onclick="window.print();">Guardad como PDF</button>
-                                <button class="btn btn-lg btn-space btn-default" onclick="window.print();">Imprimir</button>
-                                <button class="btn btn-lg btn-space btn-primary">Compartir</button>
-                            </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Estado</label>
+                                    <div class="col-sm-6">
+                                        <select class="select2" name="estado_factura">
+                                            <option value="Facturado">Facturado</option>
+                                            <option value="No facturado">No facturado</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Total de piezas</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="piezas" class="form-control input-lg">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-7">
+                                        <input type="submit" class="btn btn-rounded btn-space btn-success btn-xl" value="Agregar producto">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
     <nav class="be-right-sidebar">
@@ -373,16 +393,27 @@
         </div>
     </nav>
 </div>
-<script src="{{url("assets/lib/jquery/jquery.min.js")}}" type="text/javascript"></script>
-<script src="{{url("assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js")}}" type="text/javascript"></script>
-<script src="{{url("assets/js/main.js")}}" type="text/javascript"></script>
-<script src="{{url("assets/lib/bootstrap/dist/js/bootstrap.min.js")}}" type="text/javascript"></script>
+<script src="assets/lib/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+<script src="assets/js/main.js" type="text/javascript"></script>
+<script src="assets/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/lib/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="assets/lib/jquery.nestable/jquery.nestable.js" type="text/javascript"></script>
+<script src="assets/lib/moment.js/min/moment.min.js" type="text/javascript"></script>
+<script src="assets/lib/datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="assets/lib/select2/js/select2.min.js" type="text/javascript"></script>
+<script src="assets/lib/bootstrap-slider/js/bootstrap-slider.js" type="text/javascript"></script>
+<script src="assets/js/app-form-elements.js" type="text/javascript"></script>
+<script src="assets/js/app-ui-notifications.js" type="text/javascript"></script>
+<script src="assets/lib/jquery.gritter/js/jquery.gritter.js" type="text/javascript"></script>
+
 <script type="text/javascript">
     $(document).ready(function(){
         //initialize the javascript
         App.init();
+        App.formElements();
+        App.uiNotifications();
     });
-
 </script>
 </body>
 </html>

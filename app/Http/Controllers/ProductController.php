@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\model\Product;
+use App\model\Products;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class ProductController extends Controller
@@ -104,6 +106,46 @@ class ProductController extends Controller
         return view("product.index",['productos'=>$productos,'fecha'=>$fecha]);
     }
 
+
+    public function viewCreateExist(){
+
+
+        $products = Product::all();
+
+
+        return view('product.exist',compact('products'));
+    }
+
+    public function updateProduct(Request $request){
+
+        $cont = $request->piezas;
+        for ($i=0; $i<$cont; $i++){
+            $products = new Products();
+
+            $products->product_id = $request->nombre;
+
+            $consulta = DB::table('product')->where('id',$request->nombre)->first();
+
+
+            $products->nombre = $consulta->nombre;
+            $products->status = $request->estado_factura;
+
+
+            $products->save();
+        }
+
+        $datos = DB::table('product')->where('id',$request->nombre)->first();
+
+        $total = $datos->cantidad + $cont;
+        DB::table('product')->where('id',$request->nombre)->update(['cantidad' => $total]);
+
+
+
+            return redirect('/add-product')->with('notificationGroupSuccess', '¡Felicidades ' . Auth::user()->name . ' haz añadido un nuevo producto!');
+
+
+
+    }
     /**
      * Show the form for editing the specified resource.
      *

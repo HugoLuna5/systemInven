@@ -102,7 +102,9 @@
                                 <ul class="sub-menu">
                                     <li><a href="{{url("/products")}}">Productos</a>
                                     </li>
-                                    <li ><a href="{{url("/add-product")}}">Agregar producto</a>
+                                    <li ><a href="{{url("/add-product")}}">Agregar un nuevo producto</a>
+                                    </li>
+                                    <li ><a href="{{url("/add-product-exist")}}">Agregar producto existente</a>
                                     </li>
                                 </ul>
                             </li>
