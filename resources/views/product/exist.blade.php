@@ -55,7 +55,7 @@
             <div class="navbar-header"><a href="{{url("/")}}" class="navbar-brand"></a></div>
             <div class="be-right-navbar">
                 <ul class="nav navbar-nav navbar-right be-user-nav">
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="assets/img/avatar2.png" alt="Avatar"><span class="user-name">{{Auth::user()->name}}</span></a>
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="{{url("assets/img/avatar2.png")}}" alt="Avatar"><span class="user-name">{{Auth::user()->name}}</span></a>
                         <ul role="menu" class="dropdown-menu">
                             <li>
                                 <div class="user-info">
@@ -137,7 +137,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default panel-border-color panel-border-color-primary">
-                        <div class="panel-heading panel-heading-divider">Agregar un cliente<span class="panel-subtitle">Rellena los campos para crear tu producto</span></div>
+                        <div class="panel-heading panel-heading-divider">Agregar un producto<span class="panel-subtitle">Rellena los campos para crear tu producto</span></div>
                         <div class="panel-body">
                             <form action="{{url("/add-product-exist")}}" method="POST" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
                                 {{ csrf_field() }}

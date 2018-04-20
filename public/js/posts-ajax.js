@@ -18,14 +18,14 @@ $("#submit_finish").click(function(e) {
 
 
     var form = $("#form_finish");
-    var forma_pago = $("#form_finish").find("input[name='forma_pago']").val();
+    var forma_pago = $("#form_finish").find("select[name='forma_pago']").val();
 
 
     $.ajax({
         type: 'POST',
         dataType: 'json',
         url: 'http://127.0.0.1:8000/ajaxRequest3',
-        data: form.serialize(),
+        data: {forma_pago:forma_pago,id_venta:id_venta,id_cliente:id_cliente,piezasRespaldo:piezasRespaldo,productosRespaldo:productosRespaldo },
         success: function (data) {
 
             alert(data.success);
@@ -90,6 +90,10 @@ $("#product-submit").click(function(e){
                     id_cliente = data.id_cliente;
 
                 }else{
+                    productosRespaldo = data.productosRespaldo;
+                    piezasRespaldo = data.piezasRespaldo;
+                    id_venta = data.id_venta;
+                    id_cliente = data.id_cliente;
                     $("#exceded_credit").css("display", 'none');
                     $("#aceptar").css("display", 'none');
                     $("#rechazar").css("display", 'none');

@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="{{url("assets/lib/material-design-icons/css/material-design-iconic-font.min.css")}}"/>
 
     <link rel="stylesheet" type="text/css" href="http://foxythemes.net/preview/products/beagle/assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
-    <link rel="stylesheet" type="text/css" href="http://foxythemes.net/preview/products/beagle/assets/lib/material-design-icons/css/material-design-iconic-font.min.css"/>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -17,7 +16,13 @@
     <link rel="stylesheet" type="text/css" href="http://foxythemes.net/preview/products/beagle/assets/lib/bootstrap-slider/css/bootstrap-slider.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://foxythemes.net/preview/products/beagle/assets/lib/datetimepicker/css/bootstrap-datetimepicker.min.css"/>
     <link rel="stylesheet" href="{{url("/assets/css/app.css")}}" type="text/css"/>
+
+    <link rel="stylesheet" href="{{url("/css/icons.css")}}">
+
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+
+
+
 
 </head>
 <body>

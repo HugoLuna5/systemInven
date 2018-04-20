@@ -276,16 +276,11 @@
                                     </td>
                                     <td class="center">
 
+                                        Facturado: {{$producto->estado_producto_facturado}} |
+                                        No Facturado: {{$producto->estado_producto_no_facturado}}
 
 
-                                        <a href="#"
-                                           data-type="select"
-                                           data-pk="{{$producto->id}}"
-                                           data-url="{{url("/productos/update/$producto->id")}}"
-                                           data-title="Estado"
-                                           data-value="{{$producto->estado_producto}}"
-                                           class="set-estado"
-                                           data-name="estado_producto"></a>
+
                                     </td>
                                     <td class="center">{{$producto->categoria}}</td>
                                     <td class="center">
@@ -318,6 +313,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
 
         </div>

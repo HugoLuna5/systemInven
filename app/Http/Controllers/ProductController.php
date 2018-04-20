@@ -52,8 +52,6 @@ class ProductController extends Controller
         $producto->precio = $request->precio;
         $producto->cod_barras = $request->codigo;
         $producto->categoria = $request->categoria;
-        $producto->estado_producto = $request->estado_factura;
-        $producto->cantidad = $request->piezas;
 
         if($producto->save()) {
 
@@ -134,14 +132,28 @@ class ProductController extends Controller
             $products->save();
         }
 
-        $datos = DB::table('product')->where('id',$request->nombre)->first();
-
-        $total = $datos->cantidad + $cont;
-        DB::table('product')->where('id',$request->nombre)->update(['cantidad' => $total]);
+        if ($request->estado_factura == "Facturado"){
+            $datos = DB::table('product')->where('id',$request->nombre)->first();
 
 
+            $totalFacturado = $datos->estado_producto_facturado + $cont;
+            $total = $datos->cantidad + $cont;
+            DB::table('product')->where('id',$request->nombre)->update(['estado_producto_facturado' => $totalFacturado]);
+            DB::table('product')->where('id',$request->nombre)->update(['cantidad' => $total]);
+        }else{
+            $datos = DB::table('product')->where('id',$request->nombre)->first();
 
-            return redirect('/add-product')->with('notificationGroupSuccess', '¡Felicidades ' . Auth::user()->name . ' haz añadido un nuevo producto!');
+            $totalNoFacturado = $datos->estado_producto_no_facturado + $cont;
+            $total = $datos->cantidad + $cont;
+            DB::table('product')->where('id',$request->nombre)->update(['estado_producto_no_facturado' => $totalNoFacturado]);
+            DB::table('product')->where('id',$request->nombre)->update(['cantidad' => $total]);
+        }
+
+
+
+
+
+            return redirect('/add-product-exist')->with('notificationGroupSuccess', '¡Felicidades ' . Auth::user()->name . ' haz añadido un nuevo producto!');
 
 
 

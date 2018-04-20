@@ -20,6 +20,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+/**
+ * Routes for products result
+ */
+
+Route::get('/productos-faltantes','HomeController@productosRestantes');
+
+
 
 /*
  * Productos routes

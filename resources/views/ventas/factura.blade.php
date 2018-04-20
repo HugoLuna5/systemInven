@@ -119,7 +119,7 @@
                                     @foreach($compras as $compra)
 
                                         <tr>
-                                            <td class="description">{{$compra->producto}}<br>Fehca de compra: {{$compra->created_at}}<br>Precio C/U: {{$compra->precio/$compra->piezas}}</td>
+                                            <td class="description">{{$compra->producto}}<br>Fecha de compra: {{$compra->created_at}}<br>Precio C/U: {{$compra->precio/$compra->piezas}}</td>
                                             <td class="hours">{{$compra->piezas}}</td>
                                             <td class="amount">${{$compra->precio}}</td>
                                         </tr>

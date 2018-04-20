@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\model\Event;
 use App\model\Product;
 use App\model\ProductosVentas;
+use App\model\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -69,7 +70,7 @@ class HomeController extends Controller
 
 
         $productos = 0;
-        $pro = Product::all();
+        $pro = Products::all();
         $prodAll = Product::latest()->simplePaginate(1);
 
         if ($prodAll[0] == null){
@@ -174,6 +175,18 @@ class HomeController extends Controller
 
 
         return back();
+    }
+
+
+    public function productosRestantes(){
+        $pocosProductos = DB::table('product')->where('cantidad','<=',3)->get();
+        $md5 = md5(time().date("Y-m-d"));
+
+        $fecha = date("Y-m-d");
+
+
+        return view('home.count', compact('pocosProductos','md5','fecha'));
+
     }
 
 

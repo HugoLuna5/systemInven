@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\model\Client;
 use App\model\Product;
 use App\model\ProductosVentas;
+use App\model\Products;
 use App\model\Ventas;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -98,13 +99,13 @@ class VentasController extends Controller
                 $productosVentas->id_cliente = 0;
                 $productosVentas->nombre_cliente = "Otro";
 
-                $productoDoo = DB::table('product')->where('id', '=', $pro)->first();
+                $productoDoo = DB::table('products')->where('product_id', '=', $pro)->first();
+                $productoDoo2 = DB::table('product')->where('id', '=', $pro)->first();
 
                 $productosVentas->producto = $productoDoo->nombre;
-                $productosVentas->cod_barras = $productoDoo->cod_barras;
-                $productosVentas->categoria = $productoDoo->categoria;
-                $productosVentas->estado_producto = $productoDoo->estado_producto;
-                $productosVentas->piezas = $productoDoo->cantidad;
+                $productosVentas->cod_barras = $productoDoo2->cod_barras;
+                $productosVentas->categoria = $productoDoo2->categoria;
+                $productosVentas->estado_producto = $productoDoo->status;
                 $productosVentas->id_producto = $pro;
 
 
@@ -112,21 +113,19 @@ class VentasController extends Controller
 
 
                 $productosVentas->piezas = $array_doo[$count];
-                $productosVentas->precio = $productoDoo->precio * $array_doo[$count];
+                $productosVentas->precio = $productoDoo2->precio * $array_doo[$count];
 
 
-                $query = DB::table('products')->where('product_id',$productoDoo->id)->orderBy('id','asc')->first();
+                /*
+                for ($doo = 0; $doo < $array_doo[$count]; $doo++) {
+                    $query = DB::table('products')->where('product_id',$productoDoo->id)->orderBy('id','asc')->first();
 
-                DB::table('products')->where('id',$query->id)->delete();
+                    DB::table('products')->where('id',$query->id)->delete();
+                }
+                */
 
 
-                $productoUpdate = Product::find($productoDoo->id);
 
-                $resta = $productoDoo->cantidad - $array_doo[$count];
-
-                $productoUpdate->cantidad = $resta;
-
-                $productoUpdate->save();
 
 
                 $productosVentas->save();
@@ -143,13 +142,13 @@ class VentasController extends Controller
                 $productosVentas->id_cliente = $request->id_cliente;
                 $productosVentas->nombre_cliente = $request->nombre_cliente;
 
-                $productoDoo = DB::table('product')->where('id', '=', $pro)->first();
+                $productoDoo = DB::table('products')->where('product_id', '=', $pro)->first();
+                $productoDoo2 = DB::table('product')->where('id', '=', $pro)->first();
 
                 $productosVentas->producto = $productoDoo->nombre;
-                $productosVentas->cod_barras = $productoDoo->cod_barras;
-                $productosVentas->categoria = $productoDoo->categoria;
-                $productosVentas->estado_producto = $productoDoo->estado_producto;
-                $productosVentas->piezas = $productoDoo->cantidad;
+                $productosVentas->cod_barras = $productoDoo2->cod_barras;
+                $productosVentas->categoria = $productoDoo2->categoria;
+                $productosVentas->estado_producto = $productoDoo->status;
                 $productosVentas->id_producto = $pro;
 
 
@@ -157,23 +156,17 @@ class VentasController extends Controller
 
 
                 $productosVentas->piezas = $array_doo[$count];
-                $productosVentas->precio = $productoDoo->precio * $array_doo[$count];
+                $productosVentas->precio = $productoDoo2->precio * $array_doo[$count];
 
-
+                /*
                 for ($doo = 0; $doo < $array_doo[$count]; $doo++) {
                     $query = DB::table('products')->where('product_id',$productoDoo->id)->orderBy('id','asc')->first();
 
                     DB::table('products')->where('id',$query->id)->delete();
                 }
+                */
 
 
-                $productoUpdate = Product::find($productoDoo->id);
-
-                $resta = $productoDoo->cantidad - $array_doo[$count];
-
-                $productoUpdate->cantidad = $resta;
-
-                $productoUpdate->save();
 
 
                 $productosVentas->save();
@@ -216,19 +209,114 @@ class VentasController extends Controller
 
         $forma_pago = $request->forma_pago;
         $total = $request->total_input;
-        $id_user = $request->id_user;
-
-        if ($forma_pago == "contado"){
-
-
-
-        }else{
-
-            if ($id_user == 0) {
+        $id_user = $request->id_cliente;
+        $count = 0;
+        $piezas = $request->piezasRespaldo;
+        $productos = $request-> productosRespaldo;
 
 
-            }else{
 
+            foreach ($productos as $producto){
+
+
+                if ($forma_pago == "contado" || $id_user == 0 ){//pago de contado
+
+
+                    $products = DB::table('products')->where('product_id', '=', $producto)->first();
+                    $product = DB::table('product')->where('id', '=', $producto)->first();
+
+                    $array_doo = explode(',', $piezas);
+
+
+                    $productoUpdate = Product::find($product->id);
+
+                    $restaTotal = $product->cantidad - $array_doo[$count];
+
+                    $productoUpdate->cantidad = $restaTotal;
+                    if ($products->status == "Facturado"){
+                        $restaFacturado = $product->estado_producto_facturado - $array_doo[$count];
+
+                        $productoUpdate->estado_producto_facturado = $restaFacturado;
+                    }else{
+                        $restaNoFacturado = $product->estado_producto_no_facturado - $array_doo[$count];
+
+                        $productoUpdate->estado_producto_no_facturado = $restaNoFacturado;
+
+                    }
+                    $productoUpdate->save();
+
+
+                    for ($doo = 0; $doo < $array_doo[$count]; $doo++) {
+                        $query = DB::table('products')->where('product_id',$product->id)->orderBy('id','asc')->first();
+
+                        Products::find($query->id)->delete();
+
+                        //DB::table('products')->where('id',$query->id)->delete();
+                    }
+
+
+
+
+
+                    $count++;
+
+
+                }else{//pago a cuenta
+
+
+                    $products = DB::table('products')->where('product_id', '=', $producto)->first();
+                    $product = DB::table('product')->where('id', '=', $producto)->first();
+
+                    $array_doo = explode(',', $piezas);
+
+
+                    $productoUpdate = Product::find($product->id);
+
+                    $restaTotal = $product->cantidad - $array_doo[$count];
+
+                    $productoUpdate->cantidad = $restaTotal;
+                    if ($products->status == "Facturado"){
+                        $restaFacturado = $product->estado_producto_facturado - $array_doo[$count];
+
+                        $productoUpdate->estado_producto_facturado = $restaFacturado;
+                    }else{
+                        $restaNoFacturado = $product->estado_producto_no_facturado - $array_doo[$count];
+
+                        $productoUpdate->estado_producto_no_facturado = $restaNoFacturado;
+
+                    }
+                    $productoUpdate->save();
+
+
+                    for ($doo = 0; $doo < $array_doo[$count]; $doo++) {
+                        $query = DB::table('products')->where('product_id',$product->id)->orderBy('id','asc')->first();
+
+                        Products::find($query->id)->delete();
+
+                        //DB::table('products')->where('id',$query->id)->delete();
+                    }
+
+                    $count ++;
+
+
+
+
+                }
+
+
+
+
+
+                }
+
+                if ($forma_pago != "contado"){
+                    $dataSuma =  DB::table('productos_ventas')->where('id_venta','=',$request->id_venta)->get();
+
+                    $total = 0;
+                    foreach ($dataSuma as $su){
+                        $total = $total + $su->precio;
+
+                    }
 
                     $cliente = Client::find($id_user);
 
@@ -237,6 +325,7 @@ class VentasController extends Controller
                     $cliente->credito = $operacion;
 
                     $cliente->save();
+                }
 
 
 
@@ -244,9 +333,8 @@ class VentasController extends Controller
 
 
 
-            }
 
-        }
+
 
         if($request->ajax())
         {
@@ -257,6 +345,120 @@ class VentasController extends Controller
 
 
     }
+
+
+    public function Doooo(Request $request){
+
+        $productos = $request->productos;
+
+
+
+        $arDo = array($request->productos);
+        $count = 0;
+        foreach ($productos as $pro){
+
+
+            if ($request->id_cliente == 0) {
+
+
+
+
+
+                $productoDoo = DB::table('products')->where('product_id', '=', $pro)->first();
+                $productoDoo2 = DB::table('product')->where('id', '=', $pro)->first();
+
+
+
+                $array_doo = explode(',', $request->num_piezas);
+
+
+
+
+                for ($doo = 0; $doo < $array_doo[$count]; $doo++) {
+                    $query = DB::table('products')->where('product_id',$productoDoo->id)->orderBy('id','asc')->first();
+
+                    DB::table('products')->where('id',$query->id)->delete();
+                }
+
+
+
+                $productoUpdate = Product::find($productoDoo2->id);
+
+                $resta = $productoDoo->cantidad - $array_doo[$count];
+
+                $productoDoo2->cantidad = $resta;
+
+                $productoUpdate->save();
+
+                $count++;
+
+
+            } else {
+
+
+
+
+                $productoDoo = DB::table('products')->where('product_id', '=', $pro)->first();
+                $productoDoo2 = DB::table('product')->where('id', '=', $pro)->first();
+
+
+
+                $array_doo = explode(',', $request->num_piezas);
+
+
+
+
+                for ($doo = 0; $doo < $array_doo[$count]; $doo++) {
+                    $query = DB::table('products')->where('product_id',$productoDoo->id)->orderBy('id','asc')->first();
+
+                    DB::table('products')->where('id',$query->id)->delete();
+                }
+
+
+                $productoUpdate = Product::find($productoDoo->id);
+
+                $resta = $productoDoo2->cantidad - $array_doo[$count];
+
+                $productoUpdate->cantidad = $resta;
+
+                $productoUpdate->save();
+
+                $count++;
+
+
+            }
+
+
+        }
+
+
+        $dataSuma =  DB::table('productos_ventas')->where('id_venta','=',$request->id_venta)->get();
+
+
+
+
+        $total = 0;
+        foreach ($dataSuma as $su){
+            $total = $total + $su->precio;
+
+        }
+
+
+        $creditoCliente = Client::find($request->id_cliente);
+
+        if ($creditoCliente != null) {
+            $dss = $creditoCliente->credito;
+        }else{
+            $dss = 0;
+        }
+
+
+
+
+    }
+
+
+
 
     public function factura($id_venta, $md5, $id_cliente){
 
@@ -537,4 +739,302 @@ class VentasController extends Controller
     {
         //
     }
+
+    /*
+
+    if ($forma_pago == "contado"){//forma de pago contado
+
+
+            $productos = $request->productosRespaldo;
+
+
+
+            $arDo = array($request->productosRespaldo);
+            foreach ($productos as $pro){
+
+
+                if ($request->id_cliente == 0) {//forma de pago contado y usuario == 0
+
+
+
+
+
+                    $productoDoo = DB::table('products')->where('product_id', '=', $pro)->first();
+                    $productoDoo2 = DB::table('product')->where('id', '=', $pro)->first();
+
+
+
+                    $array_doo = explode(',', $request->piezasRespaldo);
+
+
+
+                    $productoUpdate = Product::find($productoDoo2->id);
+
+                    $restaTotal = ((int)$productoDoo2->cantidad - (int)$array_doo[$count]);
+
+                    $productoUpdate->cantidad = $restaTotal;
+                    if ($productoDoo->status == "Facturado"){
+                        $restaFacturado = ((int)$productoDoo2->estado_producto_facturado - (int)$array_doo[$count]) ;
+
+                        $productoUpdate->estado_producto_facturado = $restaFacturado;
+                    }else{
+                        $restaNoFacturado = ((int)$productoDoo2->estado_producto_no_facturado - (int)$array_doo[$count]);
+
+                        $productoUpdate->estado_producto_no_facturado = $restaNoFacturado;
+
+                    }
+                    $productoUpdate->save();
+
+
+
+
+
+                    for ($doo = 0; $doo < $array_doo[$count]; $doo++) {
+                        $query = DB::table('products')->where('product_id',$productoDoo2->id)->orderBy('id','asc')->first();
+
+
+
+                        DB::table('products')->where('id',$query->id)->delete();
+                    }
+
+
+
+
+
+                    $count++;
+
+
+                } else {//forma de pago contado y usuario != 0
+
+
+
+
+                    $productoDoo = DB::table('products')->where('product_id', '=', $pro)->first();
+                    $productoDoo2 = DB::table('product')->where('id', '=', $pro)->first();
+
+
+
+                    $array_doo = explode(',', $request->piezasRespaldo);
+
+
+
+
+                    $productoUpdate = Product::find($productoDoo2->id);
+
+                    $restaTotal = ((int)$productoDoo2->cantidad - (int)$array_doo[$count]);
+
+                    $productoUpdate->cantidad = $restaTotal;
+                    if ($productoDoo->status == "Facturado"){
+                        $restaFacturado = ((int)$productoDoo2->estado_producto_facturado - (int)$array_doo[$count]) ;
+
+                        $productoUpdate->estado_producto_facturado = $restaFacturado;
+                    }else{
+                        $restaNoFacturado = ((int)$productoDoo2->estado_producto_no_facturado - (int)$array_doo[$count]);
+
+                        $productoUpdate->estado_producto_no_facturado = $restaNoFacturado;
+
+                    }
+                    $productoUpdate->save();
+
+
+
+
+                    for ($doo = 0; $doo < $array_doo[$count]; $doo++) {
+                        $query = DB::table('products')->where('product_id',$productoDoo2->id)->orderBy('id','asc')->first();
+
+
+
+
+                        DB::table('products')->where('id',$query->id)->delete();
+                    }
+
+
+
+
+
+                    $count++;
+
+
+                }
+
+
+            }
+
+
+            $dataSuma =  DB::table('productos_ventas')->where('id_venta','=',$request->id_venta)->get();
+
+
+
+
+            $total = 0;
+            foreach ($dataSuma as $su){
+                $total = $total + $su->precio;
+
+            }
+
+
+
+                $dss = 0;
+
+
+
+
+
+
+
+
+        }else{//forma de pago credito
+
+
+
+            $productos = $request->productosRespaldo;
+
+
+
+            $arDo = array($request->productosRespaldo);
+            foreach ($productos as $pro){
+
+
+                if ($request->id_cliente == 0) {//forma de pago credito y usuario == 0
+
+
+
+
+
+                    $productoDoo = DB::table('products')->where('product_id', '=', $pro)->first();
+                    $productoDoo2 = DB::table('product')->where('id', '=', $pro)->first();
+
+
+
+                    $array_doo = explode(',', $request->piezasRespaldo);
+
+
+                    $productoUpdate = Product::find($productoDoo2->id);
+
+                    $restaTotal = ((int)$productoDoo2->cantidad - (int)$array_doo[$count]);
+
+                    $productoUpdate->cantidad = $restaTotal;
+                    if ($productoDoo->status == "Facturado"){
+                        $restaFacturado = ((int)$productoDoo2->estado_producto_facturado - (int)$array_doo[$count]) ;
+
+                        $productoUpdate->estado_producto_facturado = $restaFacturado;
+                    }else{
+                        $restaNoFacturado = ((int)$productoDoo2->estado_producto_no_facturado - (int)$array_doo[$count]);
+
+                        $productoUpdate->estado_producto_no_facturado = $restaNoFacturado;
+
+                    }
+                    $productoUpdate->save();
+
+
+
+
+
+
+                    for ($doo = 0; $doo < $array_doo[$count]; $doo++) {
+                        $query = DB::table('products')->where('product_id',$productoDoo->id)->orderBy('id','asc')->first();
+
+
+
+                        DB::table('products')->where('id',$query->id)->delete();
+                    }
+
+
+
+
+
+                    $count++;
+
+
+                } else {//forma de pago credito y usuario != 0
+
+
+
+
+                    $productoDoo = DB::table('products')->where('product_id', '=', $pro)->first();
+                    $productoDoo2 = DB::table('product')->where('id', '=', $pro)->first();
+
+
+
+                    $array_doo = explode(',', $request->num_piezas);
+
+
+
+
+                    $productoUpdate = Product::find($productoDoo2->id);
+
+                    $restaTotal = ((int)$productoDoo2->cantidad - (int)$array_doo[$count]);
+
+                    $productoUpdate->cantidad = $restaTotal;
+                    if ($productoDoo->status == "Facturado"){
+                        $restaFacturado = ((int)$productoDoo2->estado_producto_facturado - (int)$array_doo[$count]) ;
+
+                        $productoUpdate->estado_producto_facturado = $restaFacturado;
+                    }else{
+                        $restaNoFacturado = ((int)$productoDoo2->estado_producto_no_facturado - (int)$array_doo[$count]);
+
+                        $productoUpdate->estado_producto_no_facturado = $restaNoFacturado;
+
+                    }
+                    $productoUpdate->save();
+
+
+
+
+                    for ($doo = 0; $doo < $array_doo[$count]; $doo++) {
+                        $query = DB::table('products')->where('product_id',$productoDoo->id)->orderBy('id','asc')->first();
+
+
+
+
+
+
+                        DB::table('products')->where('id',$query->id)->delete();
+                    }
+
+
+
+
+
+                    $count++;
+
+
+                }
+
+
+            }
+
+
+            $dataSuma =  DB::table('productos_ventas')->where('id_venta','=',$request->id_venta)->get();
+
+
+
+
+            $total = 0;
+            foreach ($dataSuma as $su){
+                $total = $total + $su->precio;
+
+            }
+
+
+
+
+
+
+                $cliente = Client::find($id_user);
+
+                $operacion = $cliente->credito + $total;
+
+                $cliente->credito = $operacion;
+
+                $cliente->save();
+
+
+
+
+
+
+
+        }
+     */
 }

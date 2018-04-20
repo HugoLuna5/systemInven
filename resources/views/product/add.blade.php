@@ -137,7 +137,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default panel-border-color panel-border-color-primary">
-                        <div class="panel-heading panel-heading-divider">Agregar un cliente<span class="panel-subtitle">Rellena los campos para crear tu producto</span></div>
+                        <div class="panel-heading panel-heading-divider">Agregar un producto<span class="panel-subtitle">Rellena los campos para crear tu producto</span></div>
                         <div class="panel-body">
                             <form action="{{url("/add-product")}}" method="POST" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
                                 {{ csrf_field() }}
@@ -171,15 +171,6 @@
                                 </div>
 
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Categoria</label>
-                                    <div class="col-sm-6">
-                                        <select class="select2" name="estado_factura">
-                                            <option value="Facturado">Facturado</option>
-                                            <option value="No facturado">No facturado</option>
-                                        </select>
-                                    </div>
-                                </div>
 
 
 
@@ -189,8 +180,8 @@
                                         <select class="select2" name="categoria">
                                             <optgroup label="ABARROTES">
                                                 <option value="Aceite comestibles">Aceite comestibles</option>
-                                                <option value="HAderezosI">Aderezos</option>
-                                                <option value="HIConsome">Consome</option>
+                                                <option value="Aderezos">Aderezos</option>
+                                                <option value="Consome">Consome</option>
                                                 <option value="Crema de cacahuate">Crema de cacahuate</option>
                                                 <option value="Crema para café">Crema para café</option>
                                                 <option value="Pure de tomate">Pure de tomate</option>
@@ -474,13 +465,6 @@
 
 
 
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Total de piezas</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="piezas" class="form-control input-lg">
-                                    </div>
-                                </div>
 
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-7">

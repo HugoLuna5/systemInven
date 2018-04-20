@@ -23,7 +23,7 @@
                         <form  method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <input id="username" name="email" type="email" placeholder="Correo electronico" autocomplete="off" class="form-control">
+                                <input id="username" name="email" type="email" placeholder="Correo electronico" autocomplete="on" class="form-control">
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
